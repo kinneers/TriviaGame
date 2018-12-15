@@ -8,24 +8,59 @@ Date: 12-11-2018
 $(document).ready(function() {
     var correct = 0;
     var incorrect = 0;
-    var intervalId;
+    var i = 0;
     
+    var questions = [
+        {
+        question: "The question stem goes here",
+        number: "1",
+        correctAnswer: "Correct Answer Text",
+        distractors: ["Correct Answer Text", "Distractor 1", "Distractor 2", "Distractor 3"],  //Be sure to make these display in random order
+        image: ""
+        },
+        {
+        question: "This is the second question",
+        number: "2",
+        correctAnswer: "Second Correct Answer",
+        distractors: ["Second Correct Answer", "Distractor 1", "Distractor 2", "Distractor 3"],
+        image: ""
+        }
+    ];
 
-    //An idea that may or may not be helpful
-    var windowTimeout = setTimeout(function() {
-        twentySeconds();
-       }, 20000);
+    function populateQuestion() {
+        $('#mainContent').text("Question " + questions[i].number);
+        var stem = $('<p>');
+        stem.text(questions[i].question);
+        $('#mainContent').append(stem);
+        for (var j = 0; j < questions[i].distractors.length; j++) {
+            $('#mainContent').append('<button>' + questions[i].distractors[j]);
+        }
+    }
+
+    setTimeout(populateQuestion, 2000);
+
+    $('#mainContent').on('click tap', $('<button>'), function() {
+        setTimeout(timeUp, 2000); //This part is in progress
+        function timeUp() {
+            console.log("Time's Up!");
+        }
+    })
 
 /*
+
+var timeoutID = scope.setTimeout(function[, delay, param1, param2, ...]);
+var timeoutID = scope.setTimeout(function[, delay]);
+var timeoutID = scope.setTimeout(code[, delay]);
+
+timeoutID is a numerical ID, which can be used in conjunction with clearTimeout() to cancel the timer.
+scope refers to the Window interface or the WorkerGlobalScope interface.
+function is the function to be executed after the timer expires.
+code (in the alternate syntax) is a string of code to be executed.
+delay is the number of milliseconds by which the function call should be delayed. If omitted, this defaults to 0.
+
 You'll create a trivia game that shows only one question until the player answers it or their time runs out.
 
 Questions can be written as objects:
-question1 {
-    question: "The question stem goes here",
-    correctAnswer: "Correct Answer Text" (must match correct in string below),
-    distractors: ["Correct Answer Text", "Distractor 1", "Distractor 2", "Distractor 3"],  //Be sure to make these display in random order
-    image: Image to display with correct answer
-}
 
 Displaying each question and distractors will be done using jQuery
 
