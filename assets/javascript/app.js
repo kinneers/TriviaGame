@@ -9,12 +9,13 @@ $(document).ready(function() {
     var correct = 0;
     var incorrect = 0;
     var questionCount = 0;
+    var gameInterval;
     
     var questions = [
         {
         question: "Which animal poops cubes?",
         number: "1",
-        correctAnswer: "Wombats",
+        correctAnswer: "Wombat",
         distractors: ["Ferret", "Platypus", "Wombat", "Quokka"],  //Be sure to make these display in random order
         image: ""
         },
@@ -34,38 +35,60 @@ $(document).ready(function() {
         stem.text(questions[questionCount].question);
         $('#mainContent').append(stem);
         for (var i = 0; i < questions[questionCount].distractors.length; i++) {
-            $('#mainContent').append('<button>' + questions[questionCount].distractors[i]);
+            $('#mainContent').append('<button>' + questions[questionCount].distractors[i] + '</button>');
         }
-        
 
-        function questionTimer() {
-            $('#mainContent').on('click tap', $('<button>'), function() {
-                console.log("Working so far");
-            })
+        $('button').on('click tap', function() {
+            if ($(this).text() === questions[questionCount].correctAnswer) {
+                correct++;
+                checkAnswer(questions[questionCount].correctAnswer)
+            } else {
+                incorrect++;
+                checkAnswer(questions[questionCount].correctAnswer);
+            }
+        })
         
+        function checkAnswer(answer) {
+                clearInterval(gameInterval);
+                $('#mainContent').empty();
+                //Show picture
+                $('#mainContent')
+                .append(
+                    `<div class="answerDiv">The correct answer is ${answer}</div>`
+                    //Add image here ``
+                )
+                if (questionCount + 1 === questions.length) {
+                    setTimeout(function(){
+                        $('#mainContent').empty();
+                        $('#mainContent').append(`<div>This will be the report</div>`);
+                    }, 2000)
+                    clearInterval(gameInterval);
+                   
+                } else {
+                    questionCount++;
+                    setTimeout(populateQuestion, 2000);
+                }
         }
-        setInterval(questionTimer, 20000);
-        questionTimer();
+
+        //This function will force the correct answer to show if nothing has been clicked within 20 seconds
+        function showCorrect() {
+            incorrect ++;
+            checkAnswer(questions[questionCount].correctAnswer);
+        }
+
+        gameInterval = setInterval(showCorrect, 20000); //Sets a 20 second pause before the correct answer is shown 
+        
     }
 
-    setTimeout(populateQuestion, 5000);
+    //Change from directions screen to question 1- set to 2 seconds just while working out logic
+    setTimeout(populateQuestion, 2000);
 /*
 
 var timeoutID = scope.setTimeout(function[, delay, param1, param2, ...]);
 var timeoutID = scope.setTimeout(function[, delay]);
 var timeoutID = scope.setTimeout(code[, delay]);
 
-timeoutID is a numerical ID, which can be used in conjunction with clearTimeout() to cancel the timer.
-scope refers to the Window interface or the WorkerGlobalScope interface.
-function is the function to be executed after the timer expires.
-code (in the alternate syntax) is a string of code to be executed.
-delay is the number of milliseconds by which the function call should be delayed. If omitted, this defaults to 0.
-
 You'll create a trivia game that shows only one question until the player answers it or their time runs out.
-
-Questions can be written as objects:
-
-Displaying each question and distractors will be done using jQuery
 
 if (selection === correctAnswer) {
     show a screen congratulating them for choosing the right option (image). After a few seconds, display the next question -- do this without user input.
