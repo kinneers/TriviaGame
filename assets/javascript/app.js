@@ -8,14 +8,14 @@ Date: 12-11-2018
 $(document).ready(function() {
     var correct = 0;
     var incorrect = 0;
-    var i = 0;
+    var questionCount = 0;
     
     var questions = [
         {
-        question: "The question stem goes here",
+        question: "Which animal poops cubes?",
         number: "1",
-        correctAnswer: "Correct Answer Text",
-        distractors: ["Correct Answer Text", "Distractor 1", "Distractor 2", "Distractor 3"],  //Be sure to make these display in random order
+        correctAnswer: "Wombats",
+        distractors: ["Ferret", "Platypus", "Wombat", "Quokka"],  //Be sure to make these display in random order
         image: ""
         },
         {
@@ -27,25 +27,28 @@ $(document).ready(function() {
         }
     ];
 
+    //Writes the question and answer choice buttons to the page
     function populateQuestion() {
-        $('#mainContent').text("Question " + questions[i].number);
+        $('#mainContent').text("Question " + questions[questionCount].number);
         var stem = $('<p>');
-        stem.text(questions[i].question);
+        stem.text(questions[questionCount].question);
         $('#mainContent').append(stem);
-        for (var j = 0; j < questions[i].distractors.length; j++) {
-            $('#mainContent').append('<button>' + questions[i].distractors[j]);
+        for (var i = 0; i < questions[questionCount].distractors.length; i++) {
+            $('#mainContent').append('<button>' + questions[questionCount].distractors[i]);
         }
+        
+
+        function questionTimer() {
+            $('#mainContent').on('click tap', $('<button>'), function() {
+                console.log("Working so far");
+            })
+        
+        }
+        setInterval(questionTimer, 20000);
+        questionTimer();
     }
 
-    setTimeout(populateQuestion, 2000);
-
-    $('#mainContent').on('click tap', $('<button>'), function() {
-        setTimeout(timeUp, 2000); //This part is in progress
-        function timeUp() {
-            console.log("Time's Up!");
-        }
-    })
-
+    setTimeout(populateQuestion, 5000);
 /*
 
 var timeoutID = scope.setTimeout(function[, delay, param1, param2, ...]);
