@@ -23,7 +23,7 @@ h1 {
 #mainContent {
     display: flex;
     flex-direction: column;
-    min-height: 90vh;
+    min-height: 80vh;
     justify-content: center;
     align-items: center;
     font-size:30px;
