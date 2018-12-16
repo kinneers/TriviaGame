@@ -53,15 +53,22 @@ $(document).ready(function() {
                 $('#mainContent').empty();
                 //Show picture
                 $('#mainContent')
-                .append(
-                    `<div class="answerDiv">The correct answer is ${answer}</div>`
-                    //Add image here ``
+                    .append(
+                        `<div class="answerDiv">The correct answer is ${answer}</div>`
+                        //Add image here ``
                 )
                 if (questionCount + 1 === questions.length) {
                     setTimeout(function(){
                         $('#mainContent').empty();
-                        $('#mainContent').append(`<div>This will be the report</div>`);  //My tutor helped me learn about backticks
-                    }, 2000)
+                        $('#mainContent')
+                            .append(`<div>
+                                    <p>Thanks for playing!</p>
+                                    <p>Your Score: </p>
+                                    <p>Correct Answers: ${correct}</p>
+                                    <p>Incorrect Answers: ${incorrect}</p>
+                                    <button id="restart">Try Again!</button>
+                                    </div>`);  //Backticks are fun! :)
+                        }, 2000)
                     clearInterval(gameInterval);
                    
                 } else {
@@ -78,6 +85,8 @@ $(document).ready(function() {
 
         gameInterval = setInterval(showCorrect, 20000); //Sets a 20 second pause before the correct answer is shown 
     }
+
+    
 
     //Change from directions screen to question 1- set to 2 seconds just while working out logic
     setTimeout(populateQuestion, 2000);
