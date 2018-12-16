@@ -12,11 +12,11 @@ var questionCount = 0;
 var gameInterval;
 var questions = [
     {
-    question: "Which animal poops cubes?",
+    question: "Which animal poops in cubes?",
     number: "1",
     correctAnswer: "Wombat",
     distractors: ["Ferret", "Platypus", "Wombat", "Quokka"],  //Be sure to make these display in random order
-    image: ""
+    image: "assets/images/Free-wombat-picture3.jpg"
     },
     {
     question: "This is the second question",
@@ -29,6 +29,7 @@ var questions = [
 
 $(document).ready(function() {
     function playGame() {
+        $('#restart').hide();
         //Writes the question and answer choice buttons to the page
         function populateQuestion() {
             $('#mainContent').text("Question " + questions[questionCount].number);
@@ -57,8 +58,8 @@ $(document).ready(function() {
                     //Show picture
                     $('#mainContent')
                         .append(
-                            `<div class="answerDiv">The correct answer is ${answer}</div>`
-                            //Add image here ``
+                            `<div class="answerDiv">The correct answer is ${answer}</div>
+                            <img src=${questions[questionCount].image} alt="Photo of a wombat">`
                     )
                     if (questionCount + 1 === questions.length) {
                         setTimeout(function(){
@@ -68,12 +69,12 @@ $(document).ready(function() {
                                         <p>Your Score: </p>
                                         <p>Correct Answers: ${correct}</p>
                                         <p>Incorrect Answers: ${incorrect}</p>`);
-                            }, 2000)
+                            $('#restart').show();
+                            }, 3000) 
                         clearInterval(gameInterval);
-
                     } else {
                         questionCount++;
-                        setTimeout(populateQuestion, 2000);
+                        setTimeout(populateQuestion, 3000);
                     }
             }
 
@@ -82,12 +83,11 @@ $(document).ready(function() {
                 incorrect ++;
                 checkAnswer(questions[questionCount].correctAnswer);
             }
-
-            gameInterval = setInterval(showCorrect, 20000); //Sets a 20 second pause before the correct answer is shown 
+            //Sets a 20 second pause before the correct answer is shown when no answer is chosen
+            gameInterval = setInterval(showCorrect, 20000);
         }
-
         //Change from directions screen to question 1- set to 2 seconds just while working out logic
-        setTimeout(populateQuestion, 2000);
+        setTimeout(populateQuestion, 3000);
     }
 
     playGame();
@@ -96,7 +96,7 @@ $(document).ready(function() {
         correct = 0;
         incorrect = 0;
         questionCount = 0;
-        $('#mainContent').empty();
+        $('#mainContent').text("Prepare yourself to try again.  Remember: you only have 20 seconds to answer each question!");
         playGame();
     })
 })
