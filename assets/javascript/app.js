@@ -16,7 +16,7 @@ var questions = [
     number: "1",
     correctAnswer: "Wombat",
     distractors: ["Ferret", "Platypus", "Wombat", "Quokka"],  //Be sure to make these display in random order
-    image: "assets/images/Free-wombat-picture3.jpg"
+    image: '<iframe src="https://giphy.com/embed/eW7AXuZ4w2sk8" width="480" height="384" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/funny-chewing-wombat-eW7AXuZ4w2sk8">via GIPHY</a></p>'
     },
     {
     question: "This is the second question",
@@ -58,8 +58,8 @@ $(document).ready(function() {
                     //Show picture
                     $('#mainContent')
                         .append(
-                            `<div class="answerDiv">The correct answer is ${answer}</div>
-                            <img src=${questions[questionCount].image} alt="Photo of a wombat">`
+                            `<div class="answerDiv">The correct answer is: ${answer}</div>
+                            ${questions[questionCount].image}`
                     )
                     if (questionCount + 1 === questions.length) {
                         setTimeout(function(){
@@ -70,11 +70,11 @@ $(document).ready(function() {
                                         <p>Correct Answers: ${correct}</p>
                                         <p>Incorrect Answers: ${incorrect}</p>`);
                             $('#restart').show();
-                            }, 3000) 
+                            }, 5000) 
                         clearInterval(gameInterval);
                     } else {
                         questionCount++;
-                        setTimeout(populateQuestion, 3000);
+                        setTimeout(populateQuestion, 5000);
                     }
             }
 
@@ -87,7 +87,7 @@ $(document).ready(function() {
             gameInterval = setInterval(showCorrect, 20000);
         }
         //Change from directions screen to question 1- set to 2 seconds just while working out logic
-        setTimeout(populateQuestion, 3000);
+        setTimeout(populateQuestion, 5000);
     }
 
     playGame();
