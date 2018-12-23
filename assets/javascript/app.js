@@ -86,8 +86,11 @@ var questions = [
 $(document).ready(function() {
     function playGame() {
         $('#restart').hide();
+
         //Writes the question and answer choice buttons to the page
         function populateQuestion() {
+            resetCountdown();
+            startCountdown();            
             $('.questionStem').text("Question " + questions[questionCount].number);
             var stem = $('<p>');
             stem.text(questions[questionCount].question);
@@ -110,6 +113,7 @@ $(document).ready(function() {
             //This function shows the correct answer after each question has been answered or displayed for 20 seconds
             function checkAnswer(answer) {
                     clearInterval(gameInterval);
+                    stopCountdown();
                     $('.questionStem').empty();
                     //Show picture
                     $('.questionStem')
@@ -117,6 +121,7 @@ $(document).ready(function() {
                             `<div class="answerDiv">The correct answer is: ${answer}</div>
                             ${questions[questionCount].image}`
                     )
+                    //Displays total score after last question
                     if (questionCount + 1 === questions.length) {
                         setTimeout(function(){
                             $('.questionStem').empty();
@@ -128,6 +133,7 @@ $(document).ready(function() {
                             $('#restart').show();
                             }, 5000) 
                         clearInterval(gameInterval);
+                        $("#display").empty();
                     } else {
                         questionCount++;
                         setTimeout(populateQuestion, 5000);
@@ -144,6 +150,46 @@ $(document).ready(function() {
         }
         //Change from directions screen to question 1- set to 2 seconds just while working out logic
         setTimeout(populateQuestion, 5000);
+    }
+
+    //Creates and displays the 20-second countdown timer (or resets) where the following functions are called in the code above
+    var clockRunning = false;
+    var time = 20;
+    function resetCountdown() {
+        time = 20;
+        //Changes the "display" div to "00:00."
+        $("#display").text('00:20');
+    }
+    function startCountdown() {
+        //Uses setInterval to start the count here and set the clock to running.
+        if (!clockRunning) {
+            intervalId = setInterval(count, 1000);
+        }
+    }
+    function stopCountdown() {
+        //Uses clearInterval to stop the count here and set the clock to not be running.
+        clearInterval(intervalId);
+        clockRunning = false;
+    }
+    function count() {
+        time--;
+        var newTime = timeConverter(time);
+        $("#display").text(newTime);
+    }
+    function timeConverter(t) {
+    //  Takes the current time in seconds and convert it to minutes and seconds (mm:ss).
+    var minutes = Math.floor(t / 60);
+    var seconds = t - (minutes * 60);
+    if (seconds < 10) {
+        seconds = "0" + seconds;
+    }
+    if (minutes === 0) {
+        minutes = "00";
+    }
+    else if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    return minutes + ":" + seconds;
     }
 
     playGame();
