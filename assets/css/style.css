@@ -33,11 +33,23 @@ p {
     padding: 30px;
 }
 
+#display {
+    background-color: lavender;
+    border: 1px dotted gray;
+    border-radius: 25px;
+    box-shadow: gray;
+}
+
+.distractors {
+    background-color: lavender;
+    box-shadow: gray;
+    border-radius: 25px;
+}
+
 .questionStem {
     background-color: lavender;
     border: 1px dotted gray;
     border-radius: 25px;
-    justify-items: start;
 }
 
 button {
