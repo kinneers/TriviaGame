@@ -146,19 +146,19 @@ $(document).ready(function() {
                 checkAnswer(questions[questionCount].correctAnswer);
             }
             //Sets a 20 second pause before the correct answer is shown when no answer is chosen
-            gameInterval = setInterval(showCorrect, 20000);
+            gameInterval = setInterval(showCorrect, 30000);
         }
         //Change from directions screen to question 1- set to 2 seconds just while working out logic
         setTimeout(populateQuestion, 5000);
     }
 
-    //Creates and displays the 20-second countdown timer (or resets) where the following functions are called in the code above
+    //Creates and displays the 30-second countdown timer (or resets) where the following functions are called in the code above
     var clockRunning = false;
-    var time = 20;
+    var time = 30;
     function resetCountdown() {
-        time = 20;
+        time = 30;
         //Changes the "display" div to "00:00."
-        $("#display").text('00:20');
+        $("#display").text('00:30');
     }
     function startCountdown() {
         //Uses setInterval to start the count here and set the clock to running.
@@ -198,7 +198,7 @@ $(document).ready(function() {
         correct = 0;
         incorrect = 0;
         questionCount = 0;
-        $('.questionStem').text("Prepare yourself to try again.  Remember: you only have 20 seconds to answer each question!");
+        $('.questionStem').text("Prepare yourself to try again.  Remember: you only have 30 seconds to answer each question!");
         playGame();
     })
 })
