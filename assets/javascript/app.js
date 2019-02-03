@@ -1,7 +1,7 @@
 /*
 Developer: Sarah Kinneer
 Title: Trivia Game
-Description: Homework 5 (JavaScript + jQuery Timers)
+Description: JavaScript + jQuery Timers
 Date: 12-11-2018
 */
 
