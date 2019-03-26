@@ -10,6 +10,7 @@ var correct = 0;
 var incorrect = 0;
 var questionCount = 0;
 var gameInterval;
+var intervalId;
 var questions = [
     {
     question: "Which animal poops in cubes?",
@@ -131,7 +132,7 @@ $(document).ready(function() {
                                         <p>Correct Answers: ${correct}</p>
                                         <p>Incorrect Answers: ${incorrect}</p>`);
                             $('#restart').show();
-                            }, 5000) 
+                        }, 5000);
                         clearInterval(gameInterval);
                         $("#display").empty();
                     } else {
@@ -194,6 +195,7 @@ $(document).ready(function() {
 
     playGame();
     
+    //Resets the game
     $('#restart').on('click tap', function() {
         correct = 0;
         incorrect = 0;
